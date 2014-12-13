@@ -1,14 +1,16 @@
+require 'pry'
 namespace :delayed_job do
 
   def args
     args = ""
-    args += "-n #{delayed_job_workers}" unless fetch(:delayed_job_workers).nil?
-    args += "--queues=#{delayed_job_queues.join(',')}" unless fetch(:delayed_job_queues).nil?
-    args += delayed_job_pool.map {|k,v| "--pool=#{k}:#{v}"}.join(' ') unless fetch(:delayed_job_pool).nil?
+    args += "-n #{fetch(:delayed_job_workers)}" unless fetch(:delayed_job_workers).nil?
+    args += "--queues=#{fetch(:delayed_job_queues).join(',')}" unless fetch(:delayed_job_queues).nil?
+    args += fetch(:delayed_job_pool).map {|k,v| "--pool=#{k}:#{v}"}.join(' ') unless fetch(:delayed_job_pool).nil?
+    args
   end
 
   def delayed_job_roles
-    fetch(:delayed_job_server_role)
+    fetch(:delayed_job_roles)
   end
 
   desc 'Stop the delayed_job process'
