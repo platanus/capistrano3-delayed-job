@@ -3,7 +3,7 @@ namespace :delayed_job do
   def args
     args = ""
     args += "-n #{fetch(:delayed_job_workers)}" unless fetch(:delayed_job_workers).nil?
-    args += "--queues=#{fetch(:delayed_job_queues).join(',')}" unless fetch(:delayed_job_queues).nil?
+    args += " --queues=#{fetch(:delayed_job_queues).join(',')} " unless fetch(:delayed_job_queues).nil?
     args += fetch(:delayed_job_pool).map {|k,v| "--pool=#{k}:#{v}"}.join(' ') unless fetch(:delayed_job_pool).nil?
     args
   end
