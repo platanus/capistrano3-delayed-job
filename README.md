@@ -57,6 +57,11 @@ set :delayed_job_pool, {
 # Set the roles where the delayed_job process should be started
 # default value: :app
 set :delayed_job_roles, [:app, :background]
+
+# Set the location of the delayed_job executable
+# Can be relative to the release_path or absolute
+# default value 'bin'
+set :delayed_job_bin_path: 'scripts' # for rails 3.x
 ```
 
 It also adds the following hook

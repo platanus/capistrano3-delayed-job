@@ -12,12 +12,16 @@ namespace :delayed_job do
     fetch(:delayed_job_roles)
   end
 
+  def delayed_job_bin
+    Pathname.new(fetch(:delayed_job_bin_path)).join('delayed_job')
+  end
+
   desc 'Stop the delayed_job process'
   task :stop do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, :'script/delayed_job', :stop
+          execute :bundle, :exec, delayed_job_bin, :stop
         end
       end
     end
@@ -28,7 +32,7 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, :'script/delayed_job', args, :start
+          execute :bundle, :exec, delayed_job_bin, args, :start
         end
       end
     end
@@ -39,7 +43,7 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, :'script/delayed_job', args, :restart
+          execute :bundle, :exec, delayed_job_bin, args, :restart
         end
       end
     end
@@ -57,5 +61,6 @@ namespace :load do
     set :delayed_job_queues, nil
     set :delayed_job_pool, nil
     set :delayed_job_roles, :app
+    set :delayed_job_bin_path, 'bin'
   end
 end
