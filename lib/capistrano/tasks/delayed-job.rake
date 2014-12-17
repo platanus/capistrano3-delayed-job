@@ -5,7 +5,7 @@ namespace :delayed_job do
     args = []
     args << "-n #{fetch(:delayed_job_workers)}" unless fetch(:delayed_job_workers).nil?
     args << "--queues=#{fetch(:delayed_job_queues).join(',')}" unless fetch(:delayed_job_queues).nil?
-    args << fetch(:delayed_job_pool, {}).map {|k,v| "--pool=#{k}:#{v}"}.join(' ') unless fetch(:delayed_job_pool).nil?
+    args << fetch(:delayed_job_pools, {}).map {|k,v| "--pool=#{k}:#{v}"}.join(' ') unless fetch(:delayed_job_pools).nil?
     args.join(' ')
   end
 
@@ -60,7 +60,7 @@ namespace :load do
   task :defaults do
     set :delayed_job_workers, 1
     set :delayed_job_queues, nil
-    set :delayed_job_pool, nil
+    set :delayed_job_pools, nil
     set :delayed_job_roles, :app
     set :delayed_job_bin_path, 'bin'
   end
