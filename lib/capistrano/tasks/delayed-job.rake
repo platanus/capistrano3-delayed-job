@@ -1,11 +1,12 @@
+require 'pry'
 namespace :delayed_job do
 
-  def args
-    args = ""
-    args += "-n #{fetch(:delayed_job_workers)}" unless fetch(:delayed_job_workers).nil?
-    args += " --queues=#{fetch(:delayed_job_queues).join(',')} " unless fetch(:delayed_job_queues).nil?
-    args += fetch(:delayed_job_pool).map {|k,v| "--pool=#{k}:#{v}"}.join(' ') unless fetch(:delayed_job_pool).nil?
-    args
+  def delayed_job_args
+    args = []
+    args << "-n #{fetch(:delayed_job_workers)}" unless fetch(:delayed_job_workers).nil?
+    args << "--queues=#{fetch(:delayed_job_queues).join(',')}" unless fetch(:delayed_job_queues).nil?
+    args << fetch(:delayed_job_pool, {}).map {|k,v| "--pool=#{k}:#{v}"}.join(' ') unless fetch(:delayed_job_pool).nil?
+    args.join(' ')
   end
 
   def delayed_job_roles
@@ -32,7 +33,7 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, delayed_job_bin, args, :start
+          execute :bundle, :exec, delayed_job_bin, delayed_job_args, :start
         end
       end
     end
@@ -43,7 +44,7 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, delayed_job_bin, args, :restart
+          execute :bundle, :exec, delayed_job_bin, delayed_job_args, :restart
         end
       end
     end
