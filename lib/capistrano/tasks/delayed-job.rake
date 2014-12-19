@@ -1,4 +1,3 @@
-require 'pry'
 namespace :delayed_job do
 
   def delayed_job_args
