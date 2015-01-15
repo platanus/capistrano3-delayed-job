@@ -48,7 +48,9 @@ namespace :delayed_job do
       end
     end
   end
-  
+
+  before :restart, :fix_delayed_job_not_executable
+
   desc 'Fix problem when delayed_job is not executable'
   task :fix_delayed_job_not_executable do
     on roles(delayed_job_roles) do
@@ -57,10 +59,6 @@ namespace :delayed_job do
       end
     end
   end
-
-  before :start, :fix_delayed_job_not_executable
-  before :stop, :fix_delayed_job_not_executable
-  before :restart, :fix_delayed_job_not_executable
 
   after 'deploy:publishing', 'restart' do
     invoke 'delayed_job:restart'
