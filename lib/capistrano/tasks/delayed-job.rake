@@ -49,6 +49,17 @@ namespace :delayed_job do
     end
   end
 
+  before :restart, :fix_delayed_job_not_executable
+
+  desc 'Fix problem when delayed_job is not executable'
+  task :fix_delayed_job_not_executable do
+    on roles(delayed_job_roles) do
+      within release_path do
+         execute :chmod, '+x', delayed_job_bin
+      end
+    end
+  end
+
   after 'deploy:publishing', 'restart' do
     invoke 'delayed_job:restart'
   end
