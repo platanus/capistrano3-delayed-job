@@ -60,6 +60,7 @@ namespace :delayed_job do
 
   before :start, :fix_delayed_job_not_executable
   before :stop, :fix_delayed_job_not_executable
+  before :restart, :fix_delayed_job_not_executable
 
   after 'deploy:publishing', 'restart' do
     invoke 'delayed_job:restart'
