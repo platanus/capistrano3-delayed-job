@@ -40,6 +40,11 @@ Configurable options (copy into deploy.rb), shown here with examples:
 # default value: 1
 set :delayed_job_workers, 2
 
+# String to be prefixed to worker process names
+# This feature allows a prefix name to be placed in front of the process.
+# For example:  reports/delayed_job.0  instead of just delayed_job.0
+set :delayed_job_prefix, :reports               
+
 # Delayed_job queue or queues
 # Set the --queue or --queues option to work from a particular queue.
 # default value: nil
