@@ -45,7 +45,6 @@ set :delayed_job_workers, 2
 # For example:  reports/delayed_job.0  instead of just delayed_job.0
 set :delayed_job_prefix, :reports               
 
-
 # Delayed_job queue or queues
 # Set the --queue or --queues option to work from a particular queue.
 # default value: nil
