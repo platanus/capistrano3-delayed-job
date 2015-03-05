@@ -50,7 +50,7 @@ namespace :delayed_job do
     end
   end
 
-  after 'deploy:publishing', 'restart' do
+  after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
   end
 

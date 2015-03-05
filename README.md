@@ -72,7 +72,7 @@ set :delayed_job_bin_path, 'script' # for rails 3.x
 It also adds the following hook
 
 ```ruby
-after 'deploy:publishing', 'restart' do
+after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
 end
 ```
