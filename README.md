@@ -30,7 +30,7 @@ You will get the following tasks
 ```ruby
 cap delayed_job:start                    # Start delayed_job service
 cap delayed_job:stop                     # Stop delayed_job service
-cap delayed_job:reload                   # Reload delayed_job service
+cap delayed_job:restart                  # Restart delayed_job service
 ```
 
 Configurable options (copy into deploy.rb), shown here with examples:
