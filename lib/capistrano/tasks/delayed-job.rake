@@ -22,7 +22,7 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, delayed_job_bin, :stop
+          execute :bundle, :exec, delayed_job_bin, (fetch(:delayed_job_workers) ? "-n #{fetch(:delayed_job_workers)}" : ''), :stop
         end
       end
     end
