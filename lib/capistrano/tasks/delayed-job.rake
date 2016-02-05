@@ -51,6 +51,21 @@ namespace :delayed_job do
     end
   end
 
+  desc 'Generate delayed_job binstub'
+  task :generate_bin do
+    on roles(delayed_job_roles) do
+      if fetch(:delayed_job_generate_bin)
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            execute :bundle, :exec, :rails, :generate, File.basename(delayed_job_bin)
+          end
+        end
+      end
+    end
+  end
+
+  before 'delayed_job:restart', 'delayed_job:generate_bin'
+
   after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
   end
@@ -64,5 +79,6 @@ namespace :load do
     set :delayed_job_pools, nil
     set :delayed_job_roles, :app
     set :delayed_job_bin_path, 'bin'
+    set :delayed_job_generate_bin, false
   end
 end
