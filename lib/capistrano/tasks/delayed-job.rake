@@ -65,6 +65,5 @@ namespace :load do
     set :delayed_job_pools, nil
     set :delayed_job_roles, :app
     set :delayed_job_bin_path, 'bin'
-    set :delayed_job_pid_dir, '/tmp'
   end
 end
