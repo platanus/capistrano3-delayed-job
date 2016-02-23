@@ -70,6 +70,9 @@ set :delayed_job_bin_path, 'script' # for rails 3.x
 
 ### Set the location of the delayed_job logfile
 set :delayed_log_dir, 'path_to_logfile'
+
+### Set the location of the delayed_job pid file
+set :delayed_job_pid_dir, 'path_to_pid_dir'
 ```
 
 It also adds the following hook
@@ -78,6 +81,17 @@ It also adds the following hook
 after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
 end
+```
+
+Following setting is recommended to avoid stop/restart problem.
+See [#16](https://github.com/platanus/capistrano3-delayed-job/issues/16) or [#22](https://github.com/platanus/capistrano3-delayed-job/pull/22) for more detail.
+
+```ruby
+set: linked_dirs, %w(tmp/pids)
+
+# or
+
+set :delayed_job_pid_dir, '/tmp'
 ```
 
 ## Contributing
