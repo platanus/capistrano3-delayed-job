@@ -1,22 +1,13 @@
-namespace :delayed_job do
+require 'capistrano/delayed_job/helpers'
+require 'capistrano/dsl/delayed_job_paths'
 
-  def delayed_job_args
-    args = []
-    args << "-n #{fetch(:delayed_job_workers)}" unless fetch(:delayed_job_workers).nil?
-    args << "--queues=#{fetch(:delayed_job_queues).join(',')}" unless fetch(:delayed_job_queues).nil?
-    args << "--prefix=#{fetch(:delayed_job_prefix)}" unless fetch(:delayed_job_prefix).nil?
-    args << "--pid-dir=#{fetch(:delayed_job_pid_dir)}" unless fetch(:delayed_job_pid_dir).nil?
-    args << "--log-dir=#{fetch(:delayed_log_dir)}" unless fetch(:delayed_log_dir).nil?
-    args << fetch(:delayed_job_pools, {}).map {|k,v| "--pool='#{k}:#{v}'"}.join(' ') unless fetch(:delayed_job_pools).nil?
-    args.join(' ')
-  end
+include Capistrano::DelayedJob::Helpers
+include Capistrano::DSL::DelayedJobPaths
+
+namespace :delayed_job do
 
   def delayed_job_roles
     fetch(:delayed_job_roles)
-  end
-
-  def delayed_job_bin
-    Pathname.new(fetch(:delayed_job_bin_path)).join('delayed_job')
   end
 
   desc 'Stop the delayed_job process'
@@ -52,8 +43,26 @@ namespace :delayed_job do
     end
   end
 
+  desc 'Setup Delayed Job initializer'
+  task :setup_initializer do
+    on roles(:all) do |host|
+      execute sudo :rm, '-f', delayed_job_initd_file
+      sudo 'update-rc.d', '-f', fetch(:delayed_job_service), 'remove'
+    end
+    on roles fetch(:delayed_job_roles) do |server|
+      set :delayed_job_user, server.user
+      sudo_upload! template('delayed_job_init.erb'), delayed_job_initd_file
+      execute :chmod, '+x', delayed_job_initd_file
+      sudo 'update-rc.d', '-f', fetch(:delayed_job_service), 'defaults'
+    end
+  end
+
   after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
+  end
+
+  after 'deploy:published' do
+    invoke 'delayed_job:setup_initializer'
   end
 
 end
@@ -65,5 +74,7 @@ namespace :load do
     set :delayed_job_pools, nil
     set :delayed_job_roles, :app
     set :delayed_job_bin_path, 'bin'
+    set :delayed_job_service, -> { "delayed_job_#{fetch(:application)}_#{fetch(:stage)}" }
+    set :templates_path, 'config/deploy/templates'
   end
 end
