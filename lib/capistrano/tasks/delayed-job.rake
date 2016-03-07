@@ -45,22 +45,29 @@ namespace :delayed_job do
 
   desc 'Setup Delayed Job initializer'
   task :setup_initializer do
+    puts "*********************************************************"
     on roles(:all) do |host|
+      puts "======================================================="
       execute sudo :rm, '-f', delayed_job_initd_file
       sudo 'update-rc.d', '-f', fetch(:delayed_job_service), 'remove'
     end
     on roles fetch(:delayed_job_roles) do |server|
+      puts "--------------------------------------------------------"
       set :delayed_job_user, server.user
       sudo_upload! template('delayed_job_init.erb'), delayed_job_initd_file
       execute :chmod, '+x', delayed_job_initd_file
       sudo 'update-rc.d', '-f', fetch(:delayed_job_service), 'defaults'
     end
+    puts "*********************************************************"
   end
 
   after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
   end
 
+  after 'deploy:published' do
+    invoke 'delayed_job:setup_initializer'
+  end
 end
 
 namespace :load do
