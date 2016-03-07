@@ -40,10 +40,6 @@ module Capistrano
         test "[ -e #{path} ]"
       end
 
-      def deploy_user
-        capture :id, '-un'
-      end
-
       def sudo_upload!(from, to)
         filename = File.basename(to)
         to_dir = File.dirname(to)

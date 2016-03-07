@@ -49,7 +49,8 @@ namespace :delayed_job do
       execute sudo :rm, '-f', delayed_job_initd_file
       sudo 'update-rc.d', '-f', fetch(:delayed_job_service), 'remove'
     end
-    on roles fetch(:delayed_job_roles) do
+    on roles fetch(:delayed_job_roles) do |server|
+      set :delayed_job_user, server.user
       sudo_upload! template('delayed_job_init.erb'), delayed_job_initd_file
       execute :chmod, '+x', delayed_job_initd_file
       sudo 'update-rc.d', '-f', fetch(:delayed_job_service), 'defaults'

@@ -5,12 +5,12 @@
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:	   $remote_fs $syslog
 # Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6 
+# Default-Stop:      0 1 6
 # Short-Description: Manage delayed jobs for application <%= fetch(:application) %> , environment <%= fetch(:rails_env) %>
 # Description:       Start, stop, restart delayed jobs for application <%= fetch(:application) %> , environment <%= fetch(:rails_env) %>
 ### END INIT INFO
 
-AS_USER=rails
+AS_USER=<%= fetch(:delayed_job_user) %> 
 service="delayed_job"
 
 set -e
