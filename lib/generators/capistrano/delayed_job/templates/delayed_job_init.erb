@@ -1,0 +1,44 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:          delayed_job
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:	   $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6 
+# Short-Description: Manage delayed jobs for application <%= fetch(:application) %> , environment <%= fetch(:rails_env) %>
+# Description:       Start, stop, restart delayed jobs for application <%= fetch(:application) %> , environment <%= fetch(:rails_env) %>
+### END INIT INFO
+
+AS_USER=rails
+service="delayed_job"
+
+set -e
+
+interact() {
+    op="$1"
+    echo "Invoking DelayedJob with command '$op'"
+    CMD="cd <%= Pathname.new(fetch(:deploy_to)).join('current') %> && <%= bundle_delayed_job %>"
+
+    if [ "$(id -un)" = "$AS_USER" ]; then
+        eval $CMD
+    else
+        su -c "$CMD" - $AS_USER
+    fi
+}
+
+case "$1" in
+    start|stop)
+        interact "$1"
+        ;;
+    reload|restart|force-reload)
+        interact "stop"
+        sleep 1s
+        interact "start"
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+exit 0
