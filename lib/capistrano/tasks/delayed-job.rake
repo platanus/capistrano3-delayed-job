@@ -60,9 +60,10 @@ namespace :delayed_job do
   after 'deploy:published', 'restart' do
     invoke 'delayed_job:restart'
   end
-  # after 'deploy:published' do
-  #   invoke 'delayed_job:setup_initializer'
-  # end
+
+  after 'deploy:published' do
+    invoke 'delayed_job:setup_initializer'
+  end
 
 end
 
