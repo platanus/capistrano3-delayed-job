@@ -2,6 +2,7 @@ namespace :delayed_job do
 
   def delayed_job_args
     args = []
+    args << "-m" if fetch(:delayed_job_monitor, nil)
     args << "-n #{fetch(:delayed_job_workers)}" unless fetch(:delayed_job_workers).nil?
     args << "--queues=#{fetch(:delayed_job_queues).join(',')}" unless fetch(:delayed_job_queues).nil?
     args << "--prefix=#{fetch(:delayed_job_prefix)}" unless fetch(:delayed_job_prefix).nil?
