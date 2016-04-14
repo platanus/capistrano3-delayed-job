@@ -91,6 +91,10 @@ set :delayed_job_roles, [:app, :background]
 # default value: 'bin'
 # set :delayed_job_bin_path, 'script' # for rails 3.x
 
+# To pass the `-m` option to the delayed_job executable which will cause each
+# worker to be monitored when daemonized.
+# set :delayed_job_monitor, true
+
 ### Set the location of the delayed_job.log logfile
 # default value: "#{Rails.root}/log" or "#{Dir.pwd}/log"
 # set :delayed_log_dir, 'path_to_log_dir'
