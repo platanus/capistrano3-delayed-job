@@ -1,7 +1,7 @@
 # MAINTAINER WANTED
 
-If someone is using this gem on daily bases and want to help maintain it, please let us know in the issues.
-We are move away from capistrano deployments so in the short time we are not using this gem anymore.
+If someone is using this gem on a daily basis and want to help maintain it, please let us know on the issues.
+We are moving away from capistrano deployments so in the short time we are not using this gem anymore.
 
 Thanks!
 
