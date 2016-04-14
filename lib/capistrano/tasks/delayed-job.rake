@@ -47,7 +47,9 @@ namespace :delayed_job do
     on roles(delayed_job_roles) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, delayed_job_bin, delayed_job_args, :status
+          capture( :bundle, :exec, delayed_job_bin, delayed_job_args, :status ).each_line do |line|
+            info line
+          end
         end
       end
     end
