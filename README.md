@@ -1,3 +1,10 @@
+# MAINTAINER WANTED
+
+If someone is using this gem on a daily basis and want to help maintain it, please let us know on the issues.
+We are moving away from capistrano deployments so in the short time we are not using this gem anymore.
+
+Thanks!
+
 # Capistrano::DelayedJob [![Gem Version](https://badge.fury.io/rb/capistrano3-delayed-job.png)](http://badge.fury.io/rb/capistrano3-delayed-job)
 
 Delayed Job support for Capistrano 3.x
