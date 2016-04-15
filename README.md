@@ -140,7 +140,7 @@ set :delayed_job_pid_dir, '/tmp'
 
 ## Credits
 
-Thank you [contributors](https://github.com/platanus/guides/graphs/contributors)!
+Thank you [contributors](https://github.com/platanus/capistrano3-delayed-job/graphs/contributors)!
 
 <img src="http://platan.us/gravatar_with_text.png" alt="Platanus" width="250"/>
 
@@ -148,4 +148,4 @@ capistrano3-delayed-job is maintained by [platanus](http://platan.us).
 
 ## License
 
-Guides is © 2014 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
+capistrano3-delayed-job is © 2014 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
