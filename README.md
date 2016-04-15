@@ -35,9 +35,10 @@ require 'capistrano/delayed-job'
 You will get the following tasks
 
 ```ruby
-cap delayed_job:start                    # Start delayed_job service
-cap delayed_job:stop                     # Stop delayed_job service
-cap delayed_job:restart                  # Restart delayed_job service
+cap delayed_job:restart  # Restart the delayed_job process
+cap delayed_job:start    # Start the delayed_job process
+cap delayed_job:status   # Status of the delayed_job process
+cap delayed_job:stop     # Stop the delayed_job process
 ```
 
 Configurable options (copy into deploy.rb), shown here with examples:
