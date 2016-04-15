@@ -1,4 +1,4 @@
-Copyright (c) 2014 Juan Ignacio Donoso
+Copyright (c) 2016 Platanus SpA
 
 MIT License
 

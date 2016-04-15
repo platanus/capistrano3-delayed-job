@@ -148,4 +148,4 @@ capistrano3-delayed-job is maintained by [platanus](http://platan.us).
 
 ## License
 
-capistrano3-delayed-job is © 2014 platanus, spa. It is free software and may be redistributed under the terms specified in the LICENSE file.
+capistrano3-delayed-job is © 2016 Platanus SpA. It is free software and may be redistributed under the terms specified in the LICENSE file.
