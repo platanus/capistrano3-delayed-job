@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "capistrano3-delayed-job"
-  spec.version       = "1.7.0"
+  spec.version       = "1.7.1"
   spec.authors       = ["Juan Ignacio Donoso", "Agustin Feuerhake", "Ignacio Baixas"]
   spec.email         = ["juan.ignacio@platan.us", "agustin@platan.us", "ignacio@platanus"]
   spec.summary       = %q{Adds support for delayed_jobs to Capistrano 3.x}
