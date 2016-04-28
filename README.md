@@ -115,7 +115,7 @@ set :delayed_job_roles, [:app, :background]
 It also adds the following hook
 
 ```ruby
-after 'deploy:published', 'restart' do
+after 'deploy:published', 'delayed_job:restart' do
     invoke 'delayed_job:restart'
 end
 ```
