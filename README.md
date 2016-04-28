@@ -1,9 +1,8 @@
-# MAINTAINER WANTED
+# REPO MOVED
 
-If someone is using this gem on a daily basis and want to help maintain it, please let us know on the issues.
-We are moving away from capistrano deployments so in the short time we are not using this gem anymore.
+Thanks to [@rab](https://github.com/rab) for taking over this gem.
 
-Thanks!
+Now the code base is in https://github.com/AgileConsultingLLC/capistrano3-delayed-job
 
 # Capistrano::DelayedJob [![Gem Version](https://badge.fury.io/rb/capistrano3-delayed-job.png)](http://badge.fury.io/rb/capistrano3-delayed-job)
 
